@@ -23,3 +23,8 @@ content/README.md
 .cache/
 .parcel-cache/
 coverage/
+
+# Cloud-sync conflict files, especially if the macro folder lives in Dropbox
+*conflicted copy*
+*Conflicted copy*
+*.icloud
