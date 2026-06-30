@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teaching &amp; Talks | María Alejandra Schild</title>
+    <meta
+      name="description"
+      content="Teaching and talks page for a bilingual academic website."
+    />
+    <script>
+      window.__assetVersion = Date.now().toString();
+
+      const stylesheet = document.createElement("link");
+      stylesheet.rel = "stylesheet";
+      stylesheet.href = `assets/styles.css?v=${window.__assetVersion}`;
+      document.head.appendChild(stylesheet);
+    </script>
+    <script type="module">
+      import(`./assets/app.js?v=${window.__assetVersion}`);
+    </script>
+  </head>
+  <body data-page="teaching">
+    <div class="page-chrome">
+      <header class="site-header">
+        <div class="shell nav-shell">
+          <a class="brand" href="index.html" id="brand-name"></a>
+          <nav class="site-nav" id="site-nav" aria-label="Primary"></nav>
+          <div class="language-switch" aria-label="Language switcher">
+            <button type="button" data-lang-option="en">EN</button>
+            <button type="button" data-lang-option="es">ES</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="shell page-shell">
+        <header class="visually-hidden">
+          <h1 id="page-title"></h1>
+        </header>
+
+        <div class="split-section">
+          <section class="list-section">
+            <h2 id="teaching-title"></h2>
+            <div class="entry-list" id="teaching-list"></div>
+          </section>
+
+          <section class="list-section">
+            <h2 id="talks-title"></h2>
+            <div class="entry-list" id="talks-list"></div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <div class="shell footer-shell" id="footer-shell">
+          <p id="footer-text"></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

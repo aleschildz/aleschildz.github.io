@@ -1,0 +1,5 @@
+Soy estudiante de segundo año del Doctorado en Ciencia de la Computación de la Pontificia Universidad Católica de Chile, donde trabajo bajo la supervisión de [Marcelo Arenas](https://marceloarenas.cl) y la cosupervisión de [Pablo Barceló](https://pbarcelo.ing.uc.cl). Anteriormente obtuve una Licenciatura en Matemática y un Magíster en Matemática en la misma universidad. Durante ese período trabajé en combinatoria algebraica bajo la supervisión de [José Alejandro Samper](https://sites.google.com/view/jose-alejandro-samper/home).
+
+Actualmente, mi principal área de investigación es la complejidad computacional estructural, especialmente en el contexto de problemas de conteo. Disfruto sobre todo trabajar en problemas combinatoriales que pueden describirse mediante reglas sencillas. Otras áreas que me interesan son la teoría de modelos finitos, los protocolos interactivos y los algoritmos de aproximación FPRAS.
+
+Siempre estoy abierta a aprender cosas nuevas y a conocer gente. No dudes en contactarme si te gustaría conversar sobre algo.

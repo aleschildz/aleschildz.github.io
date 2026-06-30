@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Name</title>
+    <meta
+      name="description"
+      content="A bilingual academic website with a light, minimal structure."
+    />
+    <script>
+      window.__assetVersion = Date.now().toString();
+
+      const stylesheet = document.createElement("link");
+      stylesheet.rel = "stylesheet";
+      stylesheet.href = `assets/styles.css?v=${window.__assetVersion}`;
+      document.head.appendChild(stylesheet);
+    </script>
+    <script type="module">
+      import(`./assets/app.js?v=${window.__assetVersion}`);
+    </script>
+  </head>
+  <body data-page="home">
+    <div class="page-chrome">
+      <header class="site-header">
+        <div class="shell nav-shell">
+          <a class="brand" href="index.html" id="brand-name"></a>
+          <nav class="site-nav" id="site-nav" aria-label="Primary"></nav>
+          <div class="language-switch" aria-label="Language switcher">
+            <button type="button" data-lang-option="en">EN</button>
+            <button type="button" data-lang-option="es">ES</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="shell home-shell">
+        <section class="home-layout">
+          <div class="home-copy">
+            <h1 id="home-title"></h1>
+            <p class="home-meta" id="home-meta"></p>
+            <div class="prose intro-text" id="home-intro"></div>
+            <div class="contact-list" id="home-contact"></div>
+            <div class="link-row" id="home-links"></div>
+          </div>
+
+          <aside class="home-side">
+            <div class="photo-frame" id="photo-frame"></div>
+            <section class="news-block">
+              <h2 id="news-title"></h2>
+              <ul class="news-list" id="news-list"></ul>
+              <p class="news-updated" id="news-updated"></p>
+            </section>
+          </aside>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="shell footer-shell" id="footer-shell">
+          <p id="footer-text"></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

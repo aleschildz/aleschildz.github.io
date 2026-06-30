@@ -1,0 +1,25 @@
+.DS_Store
+
+# Dependency directories
+node_modules/
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# Local source images that should not be published by GitHub Pages
+assets/images/valdivia/originals/
+
+# Local-only maintenance notes
+README.md
+docs/
+content/README.md
+.agents/
+.codex/
+
+# Tooling caches
+.cache/
+.parcel-cache/
+coverage/

@@ -1,0 +1,5 @@
+I am a second-year PhD student in Computer Science at Pontificia Universidad Católica de Chile, advised by [Marcelo Arenas](https://marceloarenas.cl) and co-advised by [Pablo Barceló](https://pbarcelo.ing.uc.cl). Previously, I completed a Bachelor's degree and a Master's degree in Mathematics at the same university. During that time, I worked in algebraic combinatorics under the supervision of [José Alejandro Samper](https://sites.google.com/view/jose-alejandro-samper/home).
+
+Currently, my main research area is structural computational complexity, especially in the context of counting problems. I particularly enjoy working on combinatorial problems that can be described by simple rules. Other areas that interest me include finite model theory, interactive protocols, and fully polynomial-time randomized approximation schemes.
+
+I am always open to learning new things and meeting new people. Please feel free to contact me if you would like to discuss anything.
