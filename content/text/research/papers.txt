@@ -1,6 +1,6 @@
 title: ExplAIner: A Declarative Query Language for Explaining Classification Models
 url: https://arxiv.org/abs/2607.06407
-authors: Marcelo Arenas, Pablo Barcel\'o, Diego Bustamante, Jose Caraball, Mar\'ia Alejandra Schild, Bernardo Subercaseaux
+authors: Marcelo Arenas, Pablo Barceló, Diego Bustamante, Jose Caraball, María Alejandra Schild, Bernardo Subercaseaux
 venue: arXiv preprint
 year: 2026
 tag: preprint
