@@ -1,3 +1,12 @@
+title: ExplAIner: A Declarative Query Language for Explaining Classification Models
+url: https://arxiv.org/abs/2607.06407
+authors: Marcelo Arenas, Pablo Barcel\'o, Diego Bustamante, Jose Caraball, Mar\'ia Alejandra Schild, Bernardo Subercaseaux
+venue: arXiv preprint
+year: 2026
+tag: preprint
+
+---
+
 title: On the Complexity of Counting Orderings in Graphs
 url: https://arxiv.org/abs/2606.29157
 authors: Marcelo Arenas, María Alejandra Schild, Bernardo Subercaseaux
