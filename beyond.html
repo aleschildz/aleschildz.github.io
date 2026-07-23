@@ -36,17 +36,8 @@
       content="A personal page by María Alejandra Schild, with notes on Valdivia, books, and life beyond academic work."
     />
     <meta name="twitter:image" content="https://aleschildz.github.io/assets/images/social-card.jpg" />
-    <script>
-      window.__assetVersion = Date.now().toString();
-
-      const stylesheet = document.createElement("link");
-      stylesheet.rel = "stylesheet";
-      stylesheet.href = `assets/styles.css?v=${window.__assetVersion}`;
-      document.head.appendChild(stylesheet);
-    </script>
-    <script type="module">
-      import(`./assets/app.js?v=${window.__assetVersion}`);
-    </script>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script type="module" src="assets/app.js"></script>
   </head>
   <body data-page="beyond">
     <div class="page-chrome">

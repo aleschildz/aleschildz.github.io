@@ -1,7 +1,8 @@
+import { loadSiteContent } from "../content/site-content.js";
+
 const page = document.body.dataset.page;
 const storageKey = "academic-site-language";
 const textContentCache = new Map();
-const contentVersion = String(Date.now());
 
 let renderVersion = 0;
 let siteContent = null;
@@ -24,15 +25,12 @@ const lightboxLabels = {
   },
 };
 
-let activeLanguage =
-  window.localStorage.getItem(storageKey) ||
-  document.documentElement.lang ||
-  "en";
+let activeLanguage = readStoredLanguage() || document.documentElement.lang || "en";
 
-void initializeSite();
+void initializeSite().catch(showSiteLoadError);
 
 async function initializeSite() {
-  siteContent = await loadSiteContent();
+  siteContent = await loadSiteContent(page);
 
   if (!(activeLanguage in siteContent)) {
     activeLanguage = "en";
@@ -42,12 +40,40 @@ async function initializeSite() {
   bindLanguageSwitch();
 }
 
-async function loadSiteContent() {
-  const url = new URL("../content/site-content.js", import.meta.url);
-  url.searchParams.set("v", contentVersion);
+function readStoredLanguage() {
+  try {
+    return window.localStorage.getItem(storageKey) || "";
+  } catch {
+    return "";
+  }
+}
 
-  const module = await import(url.href);
-  return module.loadSiteContent(contentVersion);
+function storeLanguage(language) {
+  try {
+    window.localStorage.setItem(storageKey, language);
+  } catch {
+    // The language still changes for this visit when storage is unavailable.
+  }
+}
+
+function showSiteLoadError(error) {
+  console.error("The site content could not be loaded.", error);
+
+  const main = document.querySelector("main");
+
+  if (!main) {
+    return;
+  }
+
+  const message = document.createElement("p");
+  message.className = "site-load-error";
+  message.setAttribute("role", "alert");
+  message.textContent =
+    activeLanguage === "es"
+      ? "No se pudo cargar este contenido. Por favor, vuelve a intentarlo."
+      : "This content could not be loaded. Please try again.";
+
+  main.replaceChildren(message);
 }
 
 async function renderSite() {
@@ -81,14 +107,12 @@ async function renderSite() {
 }
 
 function pageTitle(copy) {
-  const titles = {
-    home: copy.shared.brandName,
-    research: `${copy.research.title} | ${copy.shared.brandName}`,
-    teaching: `${copy.teaching.title} | ${copy.shared.brandName}`,
-    beyond: `${copy.beyond.title} | ${copy.shared.brandName}`,
-  };
+  if (page === "home") {
+    return copy.shared.brandName;
+  }
 
-  return titles[page] || copy.shared.brandName;
+  const sectionTitle = copy[page]?.title;
+  return sectionTitle ? `${sectionTitle} | ${copy.shared.brandName}` : copy.shared.brandName;
 }
 
 function bindLanguageSwitch() {
@@ -101,8 +125,8 @@ function bindLanguageSwitch() {
       }
 
       activeLanguage = nextLanguage;
-      window.localStorage.setItem(storageKey, nextLanguage);
-      void renderSite();
+      storeLanguage(nextLanguage);
+      void renderSite().catch(showSiteLoadError);
     });
   });
 }
@@ -114,12 +138,24 @@ function renderNav(items) {
     return;
   }
 
-  nav.innerHTML = items
-    .map((item) => {
-      const current = item.id === page ? ' aria-current="page"' : "";
-      return `<a href="${item.href}"${current}>${item.label}</a>`;
-    })
-    .join("");
+  nav.replaceChildren(
+    ...items.map((item) => {
+      const href = getAllowedHref(item.href);
+      const link = document.createElement(href ? "a" : "span");
+
+      link.textContent = item.label;
+
+      if (href) {
+        link.href = href;
+      }
+
+      if (item.id === page) {
+        link.setAttribute("aria-current", "page");
+      }
+
+      return link;
+    }),
+  );
 }
 
 async function renderHome(copy, currentRender) {
@@ -184,22 +220,26 @@ function renderPhoto(photo) {
     return;
   }
 
-  if (photo.src) {
-    node.classList.add("has-photo");
-    node.innerHTML = `
-      <div class="photo-inner">
-        <img src="${photo.src}" alt="${photo.alt}" />
-      </div>
-    `;
-    return;
+  const photoInner = document.createElement("div");
+  const source = getSameOriginWebUrl(photo.src);
+
+  photoInner.className = "photo-inner";
+  node.classList.toggle("has-photo", Boolean(source));
+
+  if (source) {
+    const image = document.createElement("img");
+    image.src = source.href;
+    image.alt = photo.alt || "";
+    image.decoding = "async";
+    photoInner.append(image);
+  } else {
+    const placeholder = document.createElement("div");
+    placeholder.className = "photo-placeholder";
+    placeholder.textContent = photo.placeholder || "";
+    photoInner.append(placeholder);
   }
 
-  node.classList.remove("has-photo");
-  node.innerHTML = `
-    <div class="photo-inner">
-      <div class="photo-placeholder">${photo.placeholder}</div>
-    </div>
-  `;
+  node.replaceChildren(photoInner);
 }
 
 function renderContactItems(id, items) {
@@ -209,23 +249,26 @@ function renderContactItems(id, items) {
     return;
   }
 
-  node.innerHTML = items
-    .map((item) => {
+  node.replaceChildren(
+    ...items.map((item) => {
+      const href = getAllowedHref(item.href);
+      const itemNode = document.createElement(href ? "a" : "span");
+
+      itemNode.className = "contact-item";
+
       if (item.type === "email") {
-        return `<span class="contact-item">${obfuscateEmail(
-          item.user,
-          item.domain,
-          activeLanguage,
-        )}</span>`;
+        itemNode.textContent = obfuscateEmail(item.user, item.domain, activeLanguage);
+        return itemNode;
       }
 
-      if (item.href) {
-        return `<a class="contact-item" href="${item.href}">${item.text}</a>`;
+      if (href) {
+        itemNode.href = href;
       }
 
-      return `<span class="contact-item">${item.text}</span>`;
-    })
-    .join("");
+      itemNode.textContent = item.text || "";
+      return itemNode;
+    }),
+  );
 }
 
 function obfuscateEmail(user, domain, language) {
@@ -241,7 +284,9 @@ function renderLinkList(id, items, className) {
     return;
   }
 
-  node.innerHTML = items.map((item) => linkChip(item.label, item.href, className)).join("");
+  node.replaceChildren(
+    ...items.map((item) => createLinkChip(item.label, item.href, className)),
+  );
 }
 
 function renderNews(id, items) {
@@ -311,9 +356,11 @@ function createPaperEntryNode(item, tagLabels) {
   entryTop.className = "entry-top";
   title.className = "entry-title paper-title";
 
-  if (item.href && isAllowedHref(item.href)) {
+  const paperHref = getAllowedHref(item.href);
+
+  if (paperHref) {
     const link = document.createElement("a");
-    link.href = item.href;
+    link.href = paperHref;
     link.textContent = item.title;
     title.append(link);
   } else {
@@ -395,9 +442,9 @@ function createEntryNode(item) {
   if (item.links?.length) {
     const links = document.createElement("div");
     links.className = "entry-links";
-    links.innerHTML = item.links
-      .map((link) => linkChip(link.label, link.href, "entry-link"))
-      .join("");
+    links.replaceChildren(
+      ...item.links.map((link) => createLinkChip(link.label, link.href, "entry-link")),
+    );
     article.append(links);
   }
 
@@ -506,17 +553,31 @@ function createBookList(items) {
 function createImageGallery(images) {
   const gallery = document.createElement("div");
   const labels = lightboxLabels[activeLanguage] || lightboxLabels.en;
+  const safeImages = images
+    .map((image) => {
+      const source = getSameOriginWebUrl(image.src);
+
+      if (!source) {
+        return null;
+      }
+
+      return {
+        ...image,
+        src: source.href,
+      };
+    })
+    .filter(Boolean);
 
   gallery.className = "image-gallery";
 
-  images.forEach((image, index) => {
+  safeImages.forEach((image, index) => {
     const button = document.createElement("button");
     const thumbnail = document.createElement("img");
 
     button.className = "image-gallery-button";
     button.type = "button";
     button.setAttribute("aria-label", `${labels.open}: ${image.caption || image.alt}`);
-    button.addEventListener("click", () => openImageLightbox(images, index, button));
+    button.addEventListener("click", () => openImageLightbox(safeImages, index, button));
 
     thumbnail.src = image.src;
     thumbnail.alt = image.alt;
@@ -676,12 +737,14 @@ function renderLightboxImage(lightbox) {
   const image = lightbox.querySelector(".image-lightbox-image");
   const caption = lightbox.querySelector(".image-lightbox-caption");
   const hasNavigation = activeLightboxItems.length > 1;
+  const source = getSameOriginWebUrl(item?.src);
 
-  if (!item || !image || !caption) {
+  if (!item || !image || !caption || !source) {
+    closeImageLightbox();
     return;
   }
 
-  image.src = item.src;
+  image.src = source.href;
   image.alt = item.alt || "";
   caption.textContent = item.caption || "";
   caption.hidden = !item.caption;
@@ -822,24 +885,25 @@ async function resolveInlineTextContent(content) {
 }
 
 async function loadTextContent(path) {
-  if (!textContentCache.has(path)) {
-    const url = new URL(path, window.location.href);
-    url.searchParams.set("v", contentVersion);
+  const url = getSameOriginWebUrl(path);
 
-    const request = fetch(url, { cache: "no-store" })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to load ${path}`);
-        }
-
-        return response.text();
-      })
-      .catch(() => "");
-
-    textContentCache.set(path, request);
+  if (!url) {
+    throw new Error(`Refused to load non-local text content: ${path}`);
   }
 
-  return textContentCache.get(path);
+  if (!textContentCache.has(url.href)) {
+    const request = fetch(url).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to load ${path}`);
+      }
+
+      return response.text();
+    });
+
+    textContentCache.set(url.href, request);
+  }
+
+  return textContentCache.get(url.href);
 }
 
 function parseParagraphText(text) {
@@ -992,11 +1056,13 @@ function parseInlineMarkdownLinks(text) {
       });
     }
 
-    if (isAllowedHref(href)) {
+    const allowedHref = getAllowedHref(href);
+
+    if (allowedHref) {
       parts.push({
         type: "link",
         label,
-        href,
+        href: allowedHref,
       });
     } else {
       parts.push({
@@ -1018,12 +1084,36 @@ function parseInlineMarkdownLinks(text) {
   return parts;
 }
 
-function isAllowedHref(href) {
+function getAllowedHref(value) {
+  if (typeof value !== "string" || !value.trim()) {
+    return "";
+  }
+
   try {
-    const url = new URL(href, window.location.href);
-    return ["http:", "https:", "mailto:"].includes(url.protocol);
+    const url = new URL(value, window.location.href);
+    const isSecureWebLink = url.protocol === "https:";
+    const isEmailLink = url.protocol === "mailto:";
+    const isLocalPreviewLink =
+      url.protocol === "http:" && url.origin === window.location.origin;
+
+    return isSecureWebLink || isEmailLink || isLocalPreviewLink ? value : "";
   } catch {
-    return false;
+    return "";
+  }
+}
+
+function getSameOriginWebUrl(value) {
+  if (typeof value !== "string" || !value.trim()) {
+    return null;
+  }
+
+  try {
+    const url = new URL(value, window.location.href);
+    const isWebUrl = url.protocol === "http:" || url.protocol === "https:";
+
+    return isWebUrl && url.origin === window.location.origin ? url : null;
+  } catch {
+    return null;
   }
 }
 
@@ -1045,12 +1135,20 @@ function updateLanguageButtons() {
   });
 }
 
-function linkChip(label, href, className) {
-  if (href) {
-    return `<a class="${className}" href="${href}">${label}</a>`;
+function createLinkChip(label, href, className) {
+  const allowedHref = getAllowedHref(href);
+  const chip = document.createElement(allowedHref ? "a" : "span");
+
+  chip.className = className;
+  chip.textContent = label;
+
+  if (allowedHref) {
+    chip.href = allowedHref;
+  } else {
+    chip.classList.add("is-disabled");
   }
 
-  return `<span class="${className} is-disabled">${label}</span>`;
+  return chip;
 }
 
 function setText(id, value) {

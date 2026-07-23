@@ -64,9 +64,6 @@ export const beyondContent = {
         paragraphs: {
           type: "txt",
           path: "content/text/beyond/valdivia.en.txt",
-          fallback: [
-            "A short paragraph about Valdivia will go here once the final English text is ready.",
-          ],
         },
         gallery: valdiviaGallery("en"),
       },
@@ -76,14 +73,10 @@ export const beyondContent = {
         paragraphs: {
           type: "txt",
           path: "content/text/beyond/books-genres.en.txt",
-          fallback: [
-            "A short note about favorite genres will go here.",
-          ],
         },
         bookList: {
           type: "txt",
           path: "content/text/beyond/books-list.en.txt",
-          fallback: [],
         },
       },
     ],
@@ -98,9 +91,6 @@ export const beyondContent = {
         paragraphs: {
           type: "txt",
           path: "content/text/beyond/valdivia.es.txt",
-          fallback: [
-            "Aquí irá un párrafo breve sobre Valdivia cuando el texto final en español esté listo.",
-          ],
         },
         gallery: valdiviaGallery("es"),
       },
@@ -110,14 +100,10 @@ export const beyondContent = {
         paragraphs: {
           type: "txt",
           path: "content/text/beyond/books-genres.es.txt",
-          fallback: [
-            "Aquí irá un texto breve sobre mis géneros favoritos.",
-          ],
         },
         bookList: {
           type: "txt",
           path: "content/text/beyond/books-list.es.txt",
-          fallback: [],
         },
       },
     ],

@@ -17,19 +17,18 @@ const paperTagsEs = [
 const paperEntries = {
   type: "txt",
   path: "content/text/research/papers.txt",
-  fallback: [],
 };
 
 export const researchContent = {
   en: {
-    title: "Research",
+    title: "Research & Publications",
     summary: "",
     tagLegend: paperTagsEn,
     entries: paperEntries,
     emptyText: "Papers and preprints will appear here soon.",
   },
   es: {
-    title: "Investigación",
+    title: "Investigación y publicaciones",
     summary: "",
     tagLegend: paperTagsEs,
     entries: paperEntries,

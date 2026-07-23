@@ -6,8 +6,10 @@
   --line-strong: rgba(78, 60, 48, 0.22);
   --text: #2f241d;
   --muted: #6f6258;
-  --accent: #b7747d;
-  --accent-soft: rgba(183, 116, 125, 0.12);
+  --accent: #a05c68;
+  --accent-strong: #8f4654;
+  --accent-rgb: 160, 92, 104;
+  --accent-soft: rgba(var(--accent-rgb), 0.12);
   --shadow: 0 20px 45px rgba(58, 38, 28, 0.08);
   --shell-gutter: clamp(1.25rem, 4vw, 2.5rem);
   --shell: min(1120px, calc(100vw - var(--shell-gutter)));
@@ -31,7 +33,7 @@ body {
   font-family: var(--sans);
   line-height: 1.65;
   background:
-    radial-gradient(circle at top left, rgba(183, 116, 125, 0.15), transparent 32%),
+    radial-gradient(circle at top left, rgba(var(--accent-rgb), 0.15), transparent 32%),
     radial-gradient(circle at bottom right, rgba(226, 206, 187, 0.42), transparent 34%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
 }
@@ -207,8 +209,14 @@ button {
   .intro-text p,
   #valdivia > p {
     hyphens: auto;
+    hyphenate-limit-chars: 7 3 3;
     text-align: justify;
-    text-justify: inter-word;
+    text-justify: auto;
+    text-wrap: pretty;
+  }
+
+  .intro-text p {
+    max-width: 66ch;
   }
 }
 
@@ -227,7 +235,7 @@ button {
 .entry-note a,
 .essay-section a {
   color: var(--text);
-  text-decoration-color: rgba(183, 116, 125, 0.5);
+  text-decoration-color: rgba(var(--accent-rgb), 0.5);
   text-underline-offset: 0.15em;
   transition:
     color 180ms ease,
@@ -320,7 +328,7 @@ button {
   box-shadow: var(--shadow);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.28)),
-    linear-gradient(135deg, rgba(183, 116, 125, 0.18), rgba(240, 227, 214, 0.82));
+    linear-gradient(135deg, rgba(var(--accent-rgb), 0.18), rgba(240, 227, 214, 0.82));
 }
 
 .photo-inner {
@@ -393,6 +401,17 @@ button {
   padding: clamp(2rem, 4vw, 3.3rem) 0 4rem;
 }
 
+.site-load-error {
+  max-width: 42rem;
+  margin: 2rem auto;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: center;
+}
+
 .page-header {
   max-width: 46rem;
   margin-bottom: 2.4rem;
@@ -448,9 +467,9 @@ button {
   align-items: center;
   padding: 0.35rem 0.7rem;
   border-radius: 999px;
-  border: 1px solid rgba(183, 116, 125, 0.22);
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
   background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--accent-strong);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -458,9 +477,9 @@ button {
 }
 
 .paper-tag {
-  --tag-color: var(--accent);
+  --tag-color: var(--accent-strong);
   --tag-bg: var(--accent-soft);
-  --tag-border: rgba(183, 116, 125, 0.24);
+  --tag-border: rgba(var(--accent-rgb), 0.24);
   border-color: var(--tag-border);
   background: var(--tag-bg);
   color: var(--tag-color);
@@ -470,38 +489,38 @@ button {
 }
 
 .paper-tag[data-tag="preprint"] {
-  --tag-color: #a65f6b;
-  --tag-bg: rgba(183, 116, 125, 0.13);
-  --tag-border: rgba(183, 116, 125, 0.24);
+  --tag-color: var(--accent-strong);
+  --tag-bg: rgba(var(--accent-rgb), 0.13);
+  --tag-border: rgba(var(--accent-rgb), 0.24);
 }
 
 .paper-tag[data-tag="conference"] {
-  --tag-color: #87647a;
+  --tag-color: #704a64;
   --tag-bg: rgba(135, 100, 122, 0.13);
   --tag-border: rgba(135, 100, 122, 0.24);
 }
 
 .paper-tag[data-tag="journal"] {
-  --tag-color: #66795f;
+  --tag-color: #4f6548;
   --tag-bg: rgba(102, 121, 95, 0.13);
   --tag-border: rgba(102, 121, 95, 0.25);
 }
 
 .paper-tag[data-tag="workshop"] {
-  --tag-color: #5d7d80;
+  --tag-color: #42696d;
   --tag-bg: rgba(93, 125, 128, 0.13);
   --tag-border: rgba(93, 125, 128, 0.25);
 }
 
 .paper-tag[data-tag="report"] {
-  --tag-color: #9a6c4f;
+  --tag-color: #7b4e34;
   --tag-bg: rgba(154, 108, 79, 0.13);
   --tag-border: rgba(154, 108, 79, 0.25);
 }
 
 .paper-title a {
   text-decoration: none;
-  text-decoration-color: rgba(183, 116, 125, 0);
+  text-decoration-color: rgba(var(--accent-rgb), 0);
   text-underline-offset: 0.16em;
   transition:
     color 180ms ease,
@@ -523,7 +542,7 @@ button {
   max-width: 100%;
   margin: 0.85rem 0 0;
   padding: 0.38rem 0.72rem;
-  border: 1px solid rgba(183, 116, 125, 0.24);
+  border: 1px solid rgba(var(--accent-rgb), 0.24);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.58);
   color: #8f5660;
@@ -709,7 +728,7 @@ body[data-page="beyond"] .essay-grid {
 
 .image-gallery-button:focus-visible,
 .image-lightbox-button:focus-visible {
-  outline: 2px solid rgba(183, 116, 125, 0.75);
+  outline: 2px solid rgba(var(--accent-rgb), 0.75);
   outline-offset: 3px;
 }
 

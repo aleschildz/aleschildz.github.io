@@ -1,43 +1,30 @@
-export async function loadSiteContent(version = "") {
-  const modules = await Promise.all([
-    importVersioned("./beyond.js", version),
-    importVersioned("./home.js", version),
-    importVersioned("./research.js", version),
-    importVersioned("./shared.js", version),
-    importVersioned("./teaching.js", version),
-  ]);
+const pageLoaders = {
+  home: () => import("./home.js").then((module) => module.homeContent),
+  research: () => import("./research.js").then((module) => module.researchContent),
+  teaching: () => import("./teaching.js").then((module) => module.teachingContent),
+  beyond: () => import("./beyond.js").then((module) => module.beyondContent),
+};
 
-  const [beyondModule, homeModule, researchModule, sharedModule, teachingModule] = modules;
-  const beyondContent = beyondModule.beyondContent;
-  const homeContent = homeModule.homeContent;
-  const researchContent = researchModule.researchContent;
-  const sharedContent = sharedModule.sharedContent;
-  const teachingContent = teachingModule.teachingContent;
+export async function loadSiteContent(page) {
+  const loadPage = pageLoaders[page];
+
+  if (!loadPage) {
+    throw new Error(`Unknown site page: ${page}`);
+  }
+
+  const [{ sharedContent }, pageContent] = await Promise.all([
+    import("./shared.js"),
+    loadPage(),
+  ]);
 
   return {
     en: {
       shared: sharedContent.en,
-      home: homeContent.en,
-      research: researchContent.en,
-      teaching: teachingContent.en,
-      beyond: beyondContent.en,
+      [page]: pageContent.en,
     },
     es: {
       shared: sharedContent.es,
-      home: homeContent.es,
-      research: researchContent.es,
-      teaching: teachingContent.es,
-      beyond: beyondContent.es,
+      [page]: pageContent.es,
     },
   };
-}
-
-async function importVersioned(path, version) {
-  const url = new URL(path, import.meta.url);
-
-  if (version) {
-    url.searchParams.set("v", version);
-  }
-
-  return import(url.href);
 }

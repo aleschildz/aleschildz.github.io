@@ -1,6 +1,6 @@
 export const teachingContent = {
   en: {
-    title: "Teaching & Talks",
+    title: "Teaching & Academic Talks",
     summary: "",
     teachingTitle: "Teaching",
     teachingEntries: [
@@ -76,7 +76,7 @@ export const teachingContent = {
     ],
   },
   es: {
-    title: "Docencia y charlas",
+    title: "Docencia y charlas académicas",
     summary: "",
     teachingTitle: "Docencia",
     teachingEntries: [
