@@ -10,7 +10,7 @@ export const homeContent = {
     links: [
       {
         label: "LinkedIn",
-        href: "https://www.linkedin.com/in/maría-alejandra-schild-9a3277403",
+        href: "https://www.linkedin.com/in/aleschildz",
       },
       { label: "GitHub", href: "https://github.com/aleschildz" },
       {
@@ -53,7 +53,7 @@ export const homeContent = {
     links: [
       {
         label: "LinkedIn",
-        href: "https://www.linkedin.com/in/maría-alejandra-schild-9a3277403",
+        href: "https://www.linkedin.com/in/aleschildz",
       },
       { label: "GitHub", href: "https://github.com/aleschildz" },
       {
