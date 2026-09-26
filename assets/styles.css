@@ -535,10 +535,6 @@ button {
   color: var(--text);
 }
 
-.paper-author-self {
-  font-weight: 600;
-}
-
 .paper-highlight {
   width: fit-content;
   max-width: 100%;

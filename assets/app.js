@@ -373,7 +373,7 @@ function createPaperEntryNode(item, tagLabels, copy) {
   if (item.authors) {
     const authors = document.createElement("p");
     authors.className = "entry-meta paper-authors";
-    appendAuthorList(authors, item.authors, copy.highlightedAuthor);
+    authors.textContent = item.authors;
     article.append(authors);
   }
 
@@ -411,28 +411,6 @@ function createPaperTag(tag, label) {
   status.textContent = label;
 
   return status;
-}
-
-// Emphasizes the site owner's name inside a comma-separated author list.
-function appendAuthorList(node, authors, highlightedAuthor) {
-  const target = normalizePersonName(highlightedAuthor);
-
-  if (!target) {
-    node.textContent = authors;
-    return;
-  }
-
-  authors.split(/(\s*,\s*)/).forEach((part) => {
-    if (normalizePersonName(part) !== target) {
-      node.append(part);
-      return;
-    }
-
-    const author = document.createElement("span");
-    author.className = "paper-author-self";
-    author.textContent = part;
-    node.append(author);
-  });
 }
 
 function createPaperSourceLink(href, fallbackLabel) {
@@ -1084,15 +1062,6 @@ function normalizePaperTag(value = "") {
   };
 
   return (aliases[tag] || tag || "preprint").replace(/\s+/g, "-");
-}
-
-function normalizePersonName(value = "") {
-  return value
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "")
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase();
 }
 
 function appendInlineContent(node, text) {

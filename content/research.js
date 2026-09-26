@@ -19,15 +19,12 @@ const paperEntries = {
   path: "content/text/research/papers.txt",
 };
 
-const highlightedAuthor = "María Alejandra Schild";
-
 export const researchContent = {
   en: {
     title: "Publications",
     summary: "",
     tagLegend: paperTagsEn,
     entries: paperEntries,
-    highlightedAuthor,
     paperLinkLabel: "Paper",
     emptyText: "Papers and preprints will appear here soon.",
   },
@@ -36,7 +33,6 @@ export const researchContent = {
     summary: "",
     tagLegend: paperTagsEs,
     entries: paperEntries,
-    highlightedAuthor,
     paperLinkLabel: "Artículo",
     emptyText: "Pronto aparecerán aquí papers y preprints.",
   },
