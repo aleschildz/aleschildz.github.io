@@ -208,10 +208,6 @@ button {
 @media (min-width: 700px) {
   .intro-text p,
   #valdivia > p {
-    hyphens: auto;
-    hyphenate-limit-chars: 7 3 3;
-    text-align: justify;
-    text-justify: auto;
     text-wrap: pretty;
   }
 
@@ -233,7 +229,8 @@ button {
 .intro-text a,
 .page-summary a,
 .entry-note a,
-.essay-section a {
+.essay-section a,
+.paper-venue a {
   color: var(--text);
   text-decoration-color: rgba(var(--accent-rgb), 0.5);
   text-underline-offset: 0.15em;
@@ -245,8 +242,9 @@ button {
 .intro-text a:hover,
 .page-summary a:hover,
 .entry-note a:hover,
-.essay-section a:hover {
-  color: var(--accent);
+.essay-section a:hover,
+.paper-venue a:hover {
+  color: var(--accent-strong);
   text-decoration-color: currentColor;
 }
 
@@ -371,7 +369,7 @@ button {
   font-size: 0.84rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-strong);
   font-weight: 700;
 }
 
@@ -528,13 +526,17 @@ button {
 }
 
 .paper-title a:hover {
-  color: var(--accent);
+  color: var(--accent-strong);
   text-decoration: underline;
   text-decoration-color: currentColor;
 }
 
 .paper-authors {
   color: var(--text);
+}
+
+.paper-author-self {
+  font-weight: 600;
 }
 
 .paper-highlight {
@@ -610,19 +612,50 @@ body[data-page="research"] .page-header {
   margin: 0;
 }
 
+/* Research title matches the section titles; paper titles stay one step below it. */
+body[data-page="research"] .page-header h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.75rem, 3vw, 2rem);
+}
+
+body[data-page="research"] .entry-title {
+  font-size: 1.45rem;
+}
+
 .entry-details {
   margin-top: 0.9rem;
 }
 
 .entry-details summary {
+  padding-right: 0.15em;
   cursor: pointer;
   width: fit-content;
-  color: var(--accent);
+  color: var(--accent-strong);
   list-style: none;
 }
 
 .entry-details summary::-webkit-details-marker {
   display: none;
+}
+
+/* Small chevron that signals the note can be opened; it turns when the note is open. */
+.entry-details-tail {
+  white-space: nowrap;
+}
+
+.entry-details-chevron {
+  display: inline-block;
+  width: 0.36em;
+  height: 0.36em;
+  margin-left: 0.45em;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-0.2em) rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.entry-details[open] .entry-details-chevron {
+  transform: translateY(0.05em) rotate(-135deg);
 }
 
 .entry-details[open] summary {

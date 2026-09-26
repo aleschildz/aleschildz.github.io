@@ -343,10 +343,10 @@ function renderPaperEntries(id, items, copy) {
     return;
   }
 
-  node.replaceChildren(...items.map((item) => createPaperEntryNode(item, tagLabels)));
+  node.replaceChildren(...items.map((item) => createPaperEntryNode(item, tagLabels, copy)));
 }
 
-function createPaperEntryNode(item, tagLabels) {
+function createPaperEntryNode(item, tagLabels, copy) {
   const article = document.createElement("article");
   const entryTop = document.createElement("div");
   const title = document.createElement("h2");
@@ -373,14 +373,23 @@ function createPaperEntryNode(item, tagLabels) {
   if (item.authors) {
     const authors = document.createElement("p");
     authors.className = "entry-meta paper-authors";
-    authors.textContent = item.authors;
+    appendAuthorList(authors, item.authors, copy.highlightedAuthor);
     article.append(authors);
   }
 
-  if (item.venue || item.year) {
+  if (item.venue || item.year || paperHref) {
     const venue = document.createElement("p");
     venue.className = "entry-context paper-venue";
     venue.textContent = [item.venue, item.year].filter(Boolean).join(" · ");
+
+    if (paperHref) {
+      if (venue.textContent) {
+        venue.append(" · ");
+      }
+
+      venue.append(createPaperSourceLink(paperHref, copy.paperLinkLabel));
+    }
+
     article.append(venue);
   }
 
@@ -402,6 +411,54 @@ function createPaperTag(tag, label) {
   status.textContent = label;
 
   return status;
+}
+
+// Emphasizes the site owner's name inside a comma-separated author list.
+function appendAuthorList(node, authors, highlightedAuthor) {
+  const target = normalizePersonName(highlightedAuthor);
+
+  if (!target) {
+    node.textContent = authors;
+    return;
+  }
+
+  authors.split(/(\s*,\s*)/).forEach((part) => {
+    if (normalizePersonName(part) !== target) {
+      node.append(part);
+      return;
+    }
+
+    const author = document.createElement("span");
+    author.className = "paper-author-self";
+    author.textContent = part;
+    node.append(author);
+  });
+}
+
+function createPaperSourceLink(href, fallbackLabel) {
+  const link = document.createElement("a");
+
+  link.href = href;
+  link.textContent = getPaperLinkLabel(href, fallbackLabel);
+
+  return link;
+}
+
+// arXiv links show their identifier, as in academic citations (arXiv:2607.06407).
+function getPaperLinkLabel(href, fallbackLabel) {
+  try {
+    const url = new URL(href, window.location.href);
+    const isArxivUrl = url.hostname === "arxiv.org" || url.hostname.endsWith(".arxiv.org");
+    const arxivId = /^\/(?:abs|pdf)\/(.+?)(?:\.pdf)?\/?$/.exec(url.pathname)?.[1];
+
+    if (isArxivUrl) {
+      return arxivId ? `arXiv:${arxivId}` : "arXiv";
+    }
+  } catch {
+    // getAllowedHref already rejects invalid URLs; this only keeps the label safe.
+  }
+
+  return fallbackLabel || "Link";
 }
 
 function createEntryNode(item) {
@@ -461,7 +518,7 @@ function createEntryDetails(item) {
   const note = document.createElement("div");
 
   details.className = "entry-details";
-  summary.textContent = item.noteTitle || "Notes";
+  appendDetailsLabel(summary, item.noteTitle || "Notes");
   note.className = "entry-note";
 
   item.note.forEach((paragraph) => {
@@ -472,6 +529,24 @@ function createEntryDetails(item) {
 
   details.append(summary, note);
   return details;
+}
+
+// Keeps the chevron on the same line as the last word of the label.
+function appendDetailsLabel(summary, label) {
+  const lastSpace = label.lastIndexOf(" ");
+  const tail = document.createElement("span");
+  const chevron = document.createElement("span");
+
+  tail.className = "entry-details-tail";
+  chevron.className = "entry-details-chevron";
+  chevron.setAttribute("aria-hidden", "true");
+
+  if (lastSpace >= 0) {
+    summary.append(label.slice(0, lastSpace + 1));
+  }
+
+  tail.append(label.slice(lastSpace + 1), chevron);
+  summary.append(tail);
 }
 
 async function resolveEssaySections(sections) {
@@ -1009,6 +1084,15 @@ function normalizePaperTag(value = "") {
   };
 
   return (aliases[tag] || tag || "preprint").replace(/\s+/g, "-");
+}
+
+function normalizePersonName(value = "") {
+  return value
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
 }
 
 function appendInlineContent(node, text) {

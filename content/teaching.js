@@ -70,7 +70,7 @@ export const teachingContent = {
           "Seminar co-organized with [Sofía Errázuriz](https://sofiaemd.github.io).",
       },
       {
-        title: "Shelling orders and Stanley-Reisner rings",
+        title: "Shelling orders and Stanley–Reisner rings",
         meta: "Algebraic Combinatorics Seminar, Faculty of Mathematics, UC Chile · 2023 · 3 sessions",
       },
       {
@@ -78,7 +78,7 @@ export const teachingContent = {
         meta: "Algebraic Combinatorics Seminar, Faculty of Mathematics, UC Chile · 2022 · 2 sessions",
       },
       {
-        title: "The Kruskal-Katona theorem for simplicial complexes",
+        title: "The Kruskal–Katona theorem for simplicial complexes",
         meta: "Mathematics Club, Faculty of Mathematics, UC Chile · 2022 · 1 session",
       },
     ],
@@ -154,7 +154,7 @@ export const teachingContent = {
           "Seminario coorganizado con [Sofía Errázuriz](https://sofiaemd.github.io).",
       },
       {
-        title: "Descascaramientos y anillos de Stanley-Reisner",
+        title: "Descascaramientos y anillos de Stanley–Reisner",
         meta: "Seminario de Combinatoria Algebraica, Facultad de Matemática PUC · 2023 · 3 sesiones",
       },
       {
@@ -162,7 +162,7 @@ export const teachingContent = {
         meta: "Seminario de Combinatoria Algebraica, Facultad de Matemática PUC · 2022 · 2 sesiones",
       },
       {
-        title: "El Teorema de Kruskal-Katona sobre complejos simpliciales",
+        title: "El Teorema de Kruskal–Katona sobre complejos simpliciales",
         meta: "Club de Matemáticas, Facultad de Matemática PUC · 2022 · 1 sesión",
       },
     ],

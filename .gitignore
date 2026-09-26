@@ -18,6 +18,9 @@ docs/
 content/README.md
 .agents/
 .codex/
+.claude/
+CLAUDE.md
+AGENTS.md
 
 # Tooling caches
 .cache/
