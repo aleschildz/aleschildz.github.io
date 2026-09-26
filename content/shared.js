@@ -10,7 +10,7 @@ export const sharedContent = {
         label: "Teaching & Talks",
         href: "teaching-talks.html",
       },
-      { id: "beyond", label: "More", href: "beyond.html" },
+      { id: "beyond", label: "More about me", href: "beyond.html" },
     ],
   },
   es: {
@@ -24,7 +24,7 @@ export const sharedContent = {
         label: "Docencia y charlas",
         href: "teaching-talks.html",
       },
-      { id: "beyond", label: "Más", href: "beyond.html" },
+      { id: "beyond", label: "Más sobre mí", href: "beyond.html" },
     ],
   },
 };

@@ -1,7 +1,7 @@
 Este es mi sitio web personal, dedicado principalmente a mi actividad académica.
 
-Soy estudiante de segundo año del Doctorado en Ciencia de la Computación de la Pontificia Universidad Católica de Chile, supervisada por [Marcelo Arenas](https://marceloarenas.cl). Anteriormente obtuve una Licenciatura en Matemática y un Magíster en Matemática en la misma universidad. Durante ese período trabajé en combinatoria algebraica bajo la supervisión de [José Alejandro Samper](https://sites.google.com/view/jose-alejandro-samper/home).
+Soy estudiante de segundo año del Doctorado en Ciencias de la Ingeniería de la Pontificia Universidad Católica de Chile, supervisada por [Marcelo Arenas](https://marceloarenas.cl). Anteriormente obtuve una Licenciatura en Matemática y un Magíster en Matemática en la misma universidad. Durante ese período trabajé en combinatoria algebraica bajo la supervisión de [José Alejandro Samper](https://sites.google.com/view/jose-alejandro-samper/home).
 
-Actualmente, mi principal área de investigación es la complejidad computacional de problemas de conteo. Disfruto sobre todo trabajar en problemas combinatoriales que pueden describirse mediante reglas sencillas. Otros temas que me interesan son la inteligencia artificial explicable y las técnicas para conteo aproximado.
+Actualmente, mi principal área de investigación es la complejidad computacional de problemas de conteo. Disfruto sobre todo trabajar en problemas combinatorios que pueden describirse mediante reglas sencillas. Otros temas que me interesan son la inteligencia artificial explicable y las técnicas para conteo aproximado.
 
 Si quieres contactarme para conversar sobre algo de esto u otros temas relacionados, puedes escribirme al siguiente correo.

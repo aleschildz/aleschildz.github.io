@@ -1,6 +1,6 @@
 This is my personal website, dedicated mainly to my academic work.
 
-I am a second-year PhD student in Computer Science at Pontificia Universidad Católica de Chile, advised by [Marcelo Arenas](https://marceloarenas.cl). Previously, I completed a Bachelor's degree and a Master's degree in Mathematics at the same university. During that time, I worked in algebraic combinatorics under the supervision of [José Alejandro Samper](https://sites.google.com/view/jose-alejandro-samper/home).
+I am a second-year PhD student in Engineering Sciences at Pontificia Universidad Católica de Chile, advised by [Marcelo Arenas](https://marceloarenas.cl). Previously, I completed a Bachelor's degree and a Master's degree in Mathematics at the same university. During that time, I worked in algebraic combinatorics under the supervision of [José Alejandro Samper](https://sites.google.com/view/jose-alejandro-samper/home).
 
 Currently, my main research area is the computational complexity of counting problems. I particularly enjoy working on combinatorial problems that can be described by simple rules. Other topics that interest me include explainable artificial intelligence and techniques for approximate counting.
 
