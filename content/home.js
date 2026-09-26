@@ -27,6 +27,7 @@ export const homeContent = {
       },
     ],
     photo: {
+      // Keep in sync with the <img> in index.html, which loads the portrait early.
       src: "assets/images/maria-alejandra-schild.jpg",
       alt: "Portrait of María Alejandra Schild",
       placeholder: "Add your photo here",
@@ -70,6 +71,7 @@ export const homeContent = {
       },
     ],
     photo: {
+      // Keep in sync with the <img> in index.html, which loads the portrait early.
       src: "assets/images/maria-alejandra-schild.jpg",
       alt: "Retrato de María Alejandra Schild",
       placeholder: "Aquí puede ir tu foto",

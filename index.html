@@ -60,6 +60,8 @@
         ]
       }
     </script>
+    <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="stylesheet" href="assets/styles.css" />
     <script type="module" src="assets/app.js"></script>
   </head>
@@ -86,8 +88,20 @@
             <div class="link-row" id="home-links"></div>
           </div>
 
+          <div class="photo-frame" id="photo-frame">
+            <div class="photo-inner">
+              <img
+                src="assets/images/maria-alejandra-schild.jpg"
+                alt="Portrait of María Alejandra Schild"
+                width="1280"
+                height="1600"
+                decoding="async"
+                fetchpriority="high"
+              />
+            </div>
+          </div>
+
           <aside class="home-side">
-            <div class="photo-frame" id="photo-frame"></div>
             <section class="news-block">
               <h2 id="news-title"></h2>
               <ul class="news-list" id="news-list"></ul>

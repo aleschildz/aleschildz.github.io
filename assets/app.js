@@ -220,11 +220,23 @@ function renderPhoto(photo) {
     return;
   }
 
-  const photoInner = document.createElement("div");
   const source = getSameOriginWebUrl(photo.src);
+  const existingImage = node.querySelector(".photo-inner img");
 
-  photoInner.className = "photo-inner";
   node.classList.toggle("has-photo", Boolean(source));
+
+  // index.html already includes the portrait so it starts loading early; keep it and only sync it.
+  if (source && existingImage) {
+    if (existingImage.src !== source.href) {
+      existingImage.src = source.href;
+    }
+
+    existingImage.alt = photo.alt || "";
+    return;
+  }
+
+  const photoInner = document.createElement("div");
+  photoInner.className = "photo-inner";
 
   if (source) {
     const image = document.createElement("img");
