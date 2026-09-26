@@ -33,7 +33,7 @@ export const teachingContent = {
         meta: "Pontificia Universidad Católica de Chile · 2022",
         noteTitle: "Course context",
         note: [
-          "Weekly workshop organized by the Faculty of Mathematics for secondary school students with a strong interest in mathematics. I taught more than one hundred students from diverse backgrounds.",
+          "Weekly workshop for secondary school students with a strong interest in mathematics, organized by the Faculty of Mathematics.",
         ],
       },
     ],
@@ -117,7 +117,7 @@ export const teachingContent = {
         meta: "Pontificia Universidad Católica de Chile · 2022",
         noteTitle: "Contexto del curso",
         note: [
-          "Taller semanal organizado por la Facultad de Matemáticas para estudiantes de enseñanza media con especial interés en matemáticas. Estuve a cargo de más de cien estudiantes de diversos contextos.",
+          "Taller semanal para estudiantes de enseñanza media con especial interés en matemáticas, organizado por la Facultad de Matemáticas.",
         ],
       },
     ],
