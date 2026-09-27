@@ -55,7 +55,7 @@ function valdiviaGallery(language) {
 
 export const beyondContent = {
   en: {
-    title: "More",
+    title: "More about me",
     summary: "",
     sections: [
       {
@@ -82,7 +82,7 @@ export const beyondContent = {
     ],
   },
   es: {
-    title: "Más",
+    title: "Más sobre mí",
     summary: "",
     sections: [
       {
